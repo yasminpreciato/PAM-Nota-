@@ -1,14 +1,14 @@
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, FlatList, Alert } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Alert, ImageBackground } from "react-native";
 import moment from 'moment';
 import 'moment/locale/pt-br';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import todayImage from '../../assets/img/today.jpg';
+import noteImagem from "../../assets/img/note.jpg";
 import Note from "../components/Note";
 import { useEffect, useState } from "react";
-import AddNote from "./AddNote";
+import AddNote from "../screens/AddNote";
 
 const STORAGE_KEY = "@MyNotesApp:notes";
 
@@ -49,7 +49,7 @@ export default function NoteList() {
     <View style={styles.container}>
       <AddNote isVisible={showAddNote} onCancel={() => setShowAddNote(false)} onSave={addNote} />
 
-      <ImageBackground source={todayImage} style={styles.background}>
+      <ImageBackground source={noteImagem} style={styles.background}>
         <View style={styles.titleBar}>
           <Text style={styles.title}>Minhas Notas</Text>
           <Text style={styles.subtitle}>{today}</Text>
@@ -73,14 +73,25 @@ export default function NoteList() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  background: { flex: 3 },
-  noteList: { flex: 7, padding: 20 },
-  titleBar: { flex: 1, justifyContent: 'flex-end', padding: 20 },
+  background: { flex: 3, resizeMode: 'cover' },
+  titleBar: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    padding: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)' // opcional: escurece o fundo da imagem
+  },
   title: { color: 'white', fontSize: 50 },
   subtitle: { color: 'white', fontSize: 20 },
+  noteList: { flex: 7, padding: 20 },
   addButton: {
-    position: 'absolute', right: 30, bottom: 30,
-    width: 50, height: 50, borderRadius: 25,
-    backgroundColor: '#0084ff', justifyContent: 'center', alignItems: 'center'
+    position: 'absolute',
+    right: 30,
+    bottom: 30,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#0084ff',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 });
